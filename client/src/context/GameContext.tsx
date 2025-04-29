@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useLocation } from "wouter";
-import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import quests from "@/data/quests";
 import { GameStateData, Player, QuestProgress, SceneState } from "@shared/schema";
@@ -163,13 +162,6 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
 
     try {
       localStorage.setItem('percyJacksonGameState', JSON.stringify(gameState));
-
-      // In a real implementation, this would save to the server as well
-      // This is commented out since we don't have a real backend setup yet
-      // apiRequest('POST', '/api/game-state', {
-      //   userId: 1, // This would be the actual user ID in a real app
-      //   gameStateData: gameState
-      // });
     } catch (error) {
       console.error("Error saving game:", error);
       toast({

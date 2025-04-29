@@ -1,21 +1,7 @@
-import { pgTable, text, serial, integer, boolean, jsonb } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const users = pgTable("users", {
-  id: serial("id").primaryKey(),
-  username: text("username").notNull().unique(),
-  password: text("password").notNull(),
-});
-
-export const gameStates = pgTable("game_states", {
-  id: serial("id").primaryKey(),
-  userId: integer("user_id").references(() => users.id).notNull(),
-  playerData: jsonb("player_data").notNull(),
-  questProgress: jsonb("quest_progress").notNull(),
-  currentScene: jsonb("current_scene").notNull(),
-  updatedAt: text("updated_at").notNull(),
-});
+// We're removing database dependencies and keeping only the Zod schemas
+// for type validation in the client
 
 // Schema for player data structure
 export const playerSchema = z.object({
